@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <title>Calculator</title>
+</head>
+<body>
+<div id='calc-contain'>
+
+  <form id="calculatorForm" name="calculator" method="post" action="{{ path("calculation_result")}}">
+
+    <input id="answer" type="text" name="expression" />
+    <br />
+    {% for i in 1..3 %}
+    <input class="button" type="button" value="{{ i }}" />
+    {% endfor %}
+    <input class="button" type="button" value="+"  />
+    <br/>
+
+    {% for i in 4..6 %}
+      <input class="button" type="button" value="{{ i }}" />
+    {% endfor %}
+    <input class="button" type="button" value="-"  />
+    <br />
+
+    {% for i in 7..9 %}
+      <input class="button" type="button" value="{{ i }}" />
+    {% endfor %}
+    <input class="button" type="button" value="*" />
+    <br />
+
+    <input class="clear" type="button" value="c" />
+    <input class="button" type="button" value="0" />
+    <input class="submit" type="button" value="="  />
+    <input class="button" type="button" value="/"/>
+    <br />
+
+  </form>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('#calc-contain').on('click', '.button', function () {
+      $('#answer').val($('#answer').val() + $(this).val());
+    });
+
+    $('.clear').on('click', function () {
+      $('#answer').val('');
+    });
+
+    $('.submit').on('click', function () {
+      $('#calculatorForm').submit();
+    });
+
+  });
+</script>
+
+</body>
+</html>
