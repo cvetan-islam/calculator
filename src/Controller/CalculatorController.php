@@ -51,7 +51,6 @@ class CalculatorController extends AbstractController{
     $this->checkPriority();
 
     $msg .= $this->msg ?? $this->expression;
-
     return $this->render('result.html.twig', compact('msg'));
 
   }
@@ -64,6 +63,7 @@ class CalculatorController extends AbstractController{
     if($this->msg)
       return $this->msg;
 
+    $this->expression = str_replace('--', '+', $this->expression);
     $expression = $this->expression;
 
     $posMulti = strpos($expression, '*');
@@ -105,7 +105,7 @@ class CalculatorController extends AbstractController{
    */
   private function multiply() {
     $expression = $this->expression;
-    preg_match('/[0-9]+(\.[0-9]+)?\*[0-9]+(\.[0-9]+)?/', $expression,$matches);
+    preg_match('/[0-9]+(\.[0-9]+)?\*(\-)?[0-9]+(\.[0-9]+)?/', $expression,$matches);
     if(!isset($matches[0])) {
       $this->msg = 'Incorrect expression!';
       return;
@@ -125,7 +125,7 @@ class CalculatorController extends AbstractController{
    */
   private function divide() {
     $expression = $this->expression;
-    preg_match('/[0-9]+(\.[0-9]+)?\/[0-9]+(\.[0-9]+)?/', $expression,$matches);
+    preg_match('/[0-9]+(\.[0-9]+)?\/(\-)?[0-9]+(\.[0-9]+)?/', $expression,$matches);
     if(!isset($matches[0])){
       $this->msg = 'Incorrect expression!';
       return;
@@ -144,7 +144,7 @@ class CalculatorController extends AbstractController{
    */
   private function add() {
     $expression = $this->expression;
-    preg_match('/(-)?[0-9]+(\.[0-9]+)?\+[0-9]+(\.[0-9]+)?/', $expression,$matches);
+    preg_match('/(-)?[0-9]+(\.[0-9]+)?\+(\-)?[0-9]+(\.[0-9]+)?/', $expression,$matches);
     if(!isset($matches[0])) {
       $this->msg = 'Incorrect expression!';
       return;
@@ -163,7 +163,7 @@ class CalculatorController extends AbstractController{
    */
   private function subtract() {
     $expression = $this->expression;
-    preg_match('/(-)?[0-9]+(\.[0-9]+)?\-[0-9]+(\.[0-9]+)?/', $expression,$matches);
+    preg_match('/(-)?[0-9]+(\.[0-9]+)?\-(\-)?[0-9]+(\.[0-9]+)?/', $expression,$matches);
     if(!isset($matches[0])){
       $this->msg = 'Incorrect expression!';
       return;
