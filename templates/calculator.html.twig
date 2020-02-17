@@ -9,7 +9,7 @@
 
   <form id="calculatorForm" name="calculator" method="post" action="{{ path("calculation_result")}}">
 
-    <input id="answer" type="text" name="expression" />
+    <input id="answer" type="text" name="expression" placeholder="63/9*3+25"/>
     <br />
     {% for i in 1..3 %}
     <input class="button" type="button" value="{{ i }}" />
